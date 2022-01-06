@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.decathlon.constants.Constants;
 import com.decathlon.constants.DecathlonConstants;
 import com.decathlon.model.DecathlonAthlete;
 import com.decathlon.model.DecathlonEvent;
@@ -39,12 +40,12 @@ public class DecathlonService {
      * @return DecathlonAthlete Gives output as single athlete. 
      */  
 	public DecathlonAthlete addDecathlonAthleteInList(String rowFromCSV) {
-		String decathlonAthleteName = rowFromCSV.split(";")[0];
-		String eventResults = rowFromCSV.substring(1 + rowFromCSV.indexOf(";"));
+		String decathlonAthleteName = rowFromCSV.split(Constants.CSV_SEPERATOR.getSeperator())[0];
+		String eventResults = rowFromCSV.substring(1 + rowFromCSV.indexOf(Constants.CSV_SEPERATOR.getSeperator()));
 		List<DecathlonEvent> decathlonAthleteEventList = new ArrayList<DecathlonEvent>();
 		this.decathlonAthleteScore = 0;
 		Integer index = 0;
-		for (String decathlonEvent : eventResults.split(";")) {
+		for (String decathlonEvent : eventResults.split(Constants.CSV_SEPERATOR.getSeperator())) {
 			decathlonAthleteEventList.add(this.buildEvent(decathlonEvent, index++));
 		}
 		return new DecathlonAthlete(decathlonAthleteName, decathlonAthleteEventList, this.decathlonAthleteScore, "0");
